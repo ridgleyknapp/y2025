@@ -3,6 +3,9 @@ library(tidyverse)
 library(dplyr)
 library(ggplot2)
 library(data.table)
+library(knitr)
+library(htmlwidgets)
+library(plotly)
 `%nin%` <- Negate(`%in%`)
 
 setwd("/Users/yehyland/iCloud Drive (Archive)/Desktop/RPK/githublink/y2025/y2025")
@@ -15,16 +18,16 @@ questions <- colnames(df)[!(colnames(df) %in% variables)&!(colnames(df) %in% met
 
 question <- c("CURY2D")
 
+variables <- "POLITICS"
+
 lapply(question,function(question) {
   
     for (varx in variables) {
       print(varx)
-      print(
-        ggplot(df, aes(fill=df[[question]], y = FINALWT, x = ifelse(df[[varx]] == toupper(df[[varx]]), "(5) Missing", df[[varx]]))) +
-          geom_bar(position = "fill", stat = "identity") +
-          theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
-          #coord_flip() +
-          labs(x = paste(varx), y = "PROPORTION", fill = "Response") 
-      )
-    }
+      gg <- ggplot(df, aes(fill=df[[question]], y = FINALWT, x = ifelse(df[[varx]] == toupper(df[[varx]]), "(5) Missing", df[[varx]]))) +
+              geom_bar(position = "fill", stat = "identity") +
+              theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
+              labs(x = paste(varx), y = "PROPORTION", fill = "Response") 
+      saveWidget(ggplotly(gg), file = "test.html")
+          }
 })
