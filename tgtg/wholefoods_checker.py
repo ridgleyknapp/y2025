@@ -72,6 +72,7 @@ def tgtg_job():
 schedule.every().day.at("10:30").do(tgtg_job)
 schedule.every().day.at("15:15").do(tgtg_job)
 schedule.every().day.at("15:51").do(tgtg_job)
+schedule.every().day.at("16:12").do(tgtg_job)
 schedule.every().day.at("21:02").do(tgtg_job)
 schedule.every().day.at("21:12").do(tgtg_job)
 schedule.every().day.at("21:25").do(tgtg_job)
